@@ -43,13 +43,13 @@ class Hashlookup():
         return r.json()
 
     def md5_bulk_lookup(self, md5: List[str]) -> List[Dict[str, Union[str, Dict[str, str]]]]:
-        '''Lookup a MD5'''
+        '''Lookup a list of MD5'''
         to_post = {'hashes': md5}
         r = self.session.post(urljoin(self.root_url, str(Path('bulk', 'md5'))), json=to_post)
         return r.json()
 
     def sha1_bulk_lookup(self, sha1: List[str]) -> List[Dict[str, Union[str, Dict[str, str]]]]:
-        '''Lookup a MD5'''
+        '''Lookup a list of SHA1'''
         to_post = {'hashes': sha1}
         r = self.session.post(urljoin(self.root_url, str(Path('bulk', 'sha1'))), json=to_post)
         return r.json()
