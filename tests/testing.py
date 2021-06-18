@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from typing import Dict, Union, List
+
 from pyhashlookup import Hashlookup
 
 
@@ -22,10 +24,10 @@ class UnitTesting(unittest.TestCase):
         sha1 = 'FFFFFDAC1B1B4C513896C805C2C698D9688BE69F'
         bulk_md5 = ['6E2F8616A01725DCB37BED0A2495AEB2', '8ED4B4ED952526D89899E723F3488DE4', '344428FA4BA313712E4CA9B16D089AC4']
         bulk_sha1 = ['FFFFFDAC1B1B4C513896C805C2C698D9688BE69F', 'FFFFFF4DB8282D002893A9BAF00E9E9D4BA45E65', 'FFFFFE4C92E3F7282C7502F1734B243FA52326FB']
-        response_md5 = self.public_instance.lookup(md5)
-        response_sha1 = self.public_instance.lookup(sha1)
-        response_bulk_md5 = self.public_instance.lookup(bulk_md5)
-        response_bulk_sha1 = self.public_instance.lookup(bulk_sha1)
+        response_md5: Dict[str, Union[str, Dict[str, str]]] = self.public_instance.lookup(md5)  # type: ignore
+        response_sha1: Dict[str, Union[str, Dict[str, str]]] = self.public_instance.lookup(sha1)  # type: ignore
+        response_bulk_md5: List[Dict[str, Union[str, Dict[str, str]]]] = self.public_instance.lookup(bulk_md5)  # type: ignore
+        response_bulk_sha1: List[Dict[str, Union[str, Dict[str, str]]]] = self.public_instance.lookup(bulk_sha1)  # type: ignore
 
         self.assertEqual(response_md5['CRC32'], '7A5407CA', response_md5)
 
