@@ -15,7 +15,13 @@ pip install pyhashlookup
 ### Command line
 
 ```bash
-usage: hashlookup [-h] <TBD>
+usage: hashlookup [-h] [--query QUERY]
+
+Query hashlookup
+
+optional arguments:
+  -h, --help     show this help message and exit
+    --query QUERY  Hash (md5 or sha1) to lookup.
 ```
 
 ### Library
