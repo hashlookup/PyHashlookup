@@ -33,6 +33,7 @@ hashlookup = 'pyhashlookup:main'
 python = "^3.8"
 requests = "^2.25.1"
 Sphinx = { version = "^4.0.2", optional = true }
+dnspython = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.902"

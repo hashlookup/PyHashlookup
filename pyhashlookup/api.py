@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
+from pathlib import Path
 from typing import Dict, List, Union
 from urllib.parse import urljoin, urlparse
-from pathlib import Path
 
+import dns.resolver
 import requests
 
 
@@ -31,6 +33,18 @@ class Hashlookup():
         '''Get the information about the database.'''
         r = self.session.get(urljoin(self.root_url, 'info'))
         return r.json()
+
+    def md5_lookup_over_dns(self, md5: str) -> Dict[str, Union[str, Dict[str, str]]]:
+        '''Lookup a MD5, over DNS'''
+        answer = dns.resolver.resolve(f'{md5}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
+        a = str(answer[0])
+        return json.loads(json.loads(a))
+
+    def sha1_lookup_over_dns(self, sha1: str) -> Dict[str, Union[str, Dict[str, str]]]:
+        '''Lookup a SHA1, over DNS'''
+        answer = dns.resolver.resolve(f'{sha1}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
+        a = str(answer[0])
+        return json.loads(json.loads(a))
 
     def md5_lookup(self, md5: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a MD5'''

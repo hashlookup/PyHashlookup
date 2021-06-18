@@ -41,6 +41,18 @@ class UnitTesting(unittest.TestCase):
         self.assertEqual(response_bulk_sha1[1]['CRC32'], '8654F11A', response_bulk_sha1)
         self.assertEqual(response_bulk_sha1[2]['CRC32'], '8E51A269', response_bulk_sha1)
 
+    def test_dns_lookup(self) -> None:
+        md5 = '6E2F8616A01725DCB37BED0A2495AEB2'.lower()
+        response_md5: Dict[str, Union[str, Dict[str, str]]] = self.public_instance.md5_lookup_over_dns(md5)
+        self.assertEqual(response_md5['CRC32'], 'E774FD92', response_md5)
+
+        sha1 = 'FFFFFDAC1B1B4C513896C805C2C698D9688BE69F'.lower()
+        response_sha1: Dict[str, Union[str, Dict[str, str]]] = self.public_instance.sha1_lookup_over_dns(sha1)
+        self.assertEqual(response_sha1['CRC32'], 'CBD64CD9')
+        sha1 = 'FFFFFF4DB8282D002893A9BAF00E9E9D4BA45E65'.lower()
+        response_sha1 = self.public_instance.sha1_lookup_over_dns(sha1)
+        self.assertEqual(response_sha1['CRC32'], '8654F11A')
+
 
 if __name__ == '__main__':
     unittest.main()
