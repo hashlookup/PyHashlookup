@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "pyhashlookup"
+version = "0.9"
+description = "Python CLI and module for CIRCL hash lookup"
+authors = ["Raphaël Vinot <raphael.vinot@circl.lu>"]
+license = "BSD-3-Clause"
+repository = "https://github.com/CIRCL/PyHashlookup"
+documentation = "https://pyhashlookup.readthedocs.io/en/latest/"
+
+readme = "README.md"
+
+classifiers = [
+    'License :: OSI Approved :: BSD License',
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Operating System :: POSIX :: Linux',
+    'Intended Audience :: Science/Research',
+    'Intended Audience :: Telecommunications Industry',
+    'Intended Audience :: Information Technology',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Topic :: Security',
+    'Topic :: Internet',
+]
+
+include = ['README.md']
+
+[tool.poetry.scripts]
+hashlookup = 'pyhashlookup:main'
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+Sphinx = { version = "^4.0.2", optional = true }
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.902"
+types-requests = "^0.1.12"
+nose = "^1.3.7"
+coverage = "^5.5"
+
+[tool.poetry.extras]
+docs = ["Sphinx"]
+
+[build-system]
+requires = ["poetry_core>=1.0", "setuptools"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_any_generics = true
+python_version = 3.8
+ignore_errors = false
+ignore_missing_imports = false
+strict_optional = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "docs.source.*"
+ignore_errors = true
