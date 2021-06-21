@@ -34,6 +34,12 @@ class Hashlookup():
         r = self.session.get(urljoin(self.root_url, 'info'))
         return r.json()
 
+    def info_over_dns(self) -> Dict[str, str]:
+        '''Get the information about the database.'''
+        answer = dns.resolver.resolve('info.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
+        a = str(answer[0])
+        return json.loads(json.loads(a))
+
     def md5_lookup_over_dns(self, md5: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a MD5, over DNS'''
         answer = dns.resolver.resolve(f'{md5}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore

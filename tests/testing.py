@@ -15,6 +15,10 @@ class UnitTesting(unittest.TestCase):
     def setUpClass(cls) -> None:
         setattr(cls, "public_instance", Hashlookup())
 
+    def test_info_over_dns(self) -> None:
+        response = self.public_instance.info_over_dns()
+        self.assertTrue('hashlookup-version' in response)
+
     def test_info(self) -> None:
         response = self.public_instance.info()
         self.assertTrue('hashlookup-version' in response)
