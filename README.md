@@ -1,6 +1,6 @@
 [![Documentation Status](https://readthedocs.org/projects/pyhashlookup/badge/?version=latest)](https://pyhashlookup.readthedocs.io/en/latest/?badge=latest)
 
-# PyLookyloo
+# PyHashlookup
 
 This is the client API for [hashlookup](https://hashlookup.circl.lu/).
 
