@@ -42,12 +42,14 @@ class Hashlookup():
 
     def md5_lookup_over_dns(self, md5: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a MD5, over DNS'''
+        md5 = md5.lower()
         answer = dns.resolver.resolve(f'{md5}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
         a = str(answer[0])
         return json.loads(json.loads(a))
 
     def sha1_lookup_over_dns(self, sha1: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a SHA1, over DNS'''
+        sha1 = sha1.lower()
         answer = dns.resolver.resolve(f'{sha1}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
         a = str(answer[0])
         return json.loads(json.loads(a))
@@ -60,6 +62,11 @@ class Hashlookup():
     def sha1_lookup(self, sha1: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a SHA1'''
         r = self.session.get(urljoin(self.root_url, str(Path('lookup', 'sha1', sha1))))
+        return r.json()
+
+    def sha256_lookup(self, sha256: str) -> Dict[str, Union[str, Dict[str, str]]]:
+        '''Lookup a SHA256'''
+        r = self.session.get(urljoin(self.root_url, str(Path('lookup', 'sha256', sha256))))
         return r.json()
 
     def md5_bulk_lookup(self, md5: List[str]) -> List[Dict[str, Union[str, Dict[str, str]]]]:
@@ -81,7 +88,9 @@ class Hashlookup():
                 return self.md5_lookup(to_lookup)
             elif len(to_lookup) == 40:
                 return self.sha1_lookup(to_lookup)
-            raise PyHashlookupError('The hash must be either MD5 or SHA1')
+            elif len(to_lookup) == 64:
+                return self.sha256_lookup(to_lookup)
+            raise PyHashlookupError('The hash must be either MD5, SHA1 or SHA256')
         elif isinstance(to_lookup, list):
             if all(len(lookup_hash) == 32 for lookup_hash in to_lookup):
                 return self.md5_bulk_lookup(to_lookup)
