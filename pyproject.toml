@@ -4,7 +4,7 @@ version = "1.1.1"
 description = "Python CLI and module for CIRCL hash lookup"
 authors = ["Raphaël Vinot <raphael.vinot@circl.lu>"]
 license = "BSD-3-Clause"
-repository = "https://github.com/CIRCL/PyHashlookup"
+repository = "https://github.com/hashlookup/PyHashlookup"
 documentation = "https://pyhashlookup.readthedocs.io/en/latest/"
 
 readme = "README.md"
