@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import json
+import typing
+
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Any
 from urllib.parse import urljoin, urlparse
 
 import dns.resolver
@@ -32,6 +34,11 @@ class Hashlookup():
     def info(self) -> Dict[str, str]:
         '''Get the information about the database.'''
         r = self.session.get(urljoin(self.root_url, 'info'))
+        return r.json()
+
+    def top(self) -> Dict[str, Any]:
+        '''Get the information about the database.'''
+        r = self.session.get(urljoin(self.root_url, 'stats/top'))
         return r.json()
 
     def info_over_dns(self) -> Dict[str, str]:
@@ -69,19 +76,27 @@ class Hashlookup():
         r = self.session.get(urljoin(self.root_url, str(Path('lookup', 'sha256', sha256))))
         return r.json()
 
-    def md5_bulk_lookup(self, md5: List[str]) -> List[Dict[str, Union[str, Dict[str, str]]]]:
+    def md5_bulk_lookup(self, md5: List[str]) -> List[Dict[str, str]]:
         '''Lookup a list of MD5'''
         to_post = {'hashes': md5}
         r = self.session.post(urljoin(self.root_url, str(Path('bulk', 'md5'))), json=to_post)
         return r.json()
 
-    def sha1_bulk_lookup(self, sha1: List[str]) -> List[Dict[str, Union[str, Dict[str, str]]]]:
+    def sha1_bulk_lookup(self, sha1: List[str]) -> List[Dict[str, str]]:
         '''Lookup a list of SHA1'''
         to_post = {'hashes': sha1}
         r = self.session.post(urljoin(self.root_url, str(Path('bulk', 'sha1'))), json=to_post)
         return r.json()
 
-    def lookup(self, to_lookup: Union[str, List[str]]) -> Union[Dict[str, Union[str, Dict[str, str]]], List[Dict[str, Union[str, Dict[str, str]]]]]:
+    @typing.overload
+    def lookup(self, to_lookup: List[str]) -> List[Dict[str, str]]:
+        ...  # pragma: no cover
+
+    @typing.overload
+    def lookup(self, to_lookup: str) -> Dict[str, Union[str, Dict[str, str]]]:
+        ...  # pragma: no cover
+
+    def lookup(self, to_lookup):  # type: ignore
         """Lookup for (a list of) MD5 or SHA1"""
         if isinstance(to_lookup, str):
             if len(to_lookup) == 32:
