@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import json
+import pkg_resources
 import typing
 
 from pathlib import Path
-from typing import Dict, List, Union, Any
+from typing import Dict, List, Union, Any, Optional
 from urllib.parse import urljoin, urlparse
 
 import dns.resolver
@@ -18,18 +19,19 @@ class PyHashlookupError(Exception):
 
 class Hashlookup():
 
-    def __init__(self, root_url: str='https://hashlookup.circl.lu/'):
+    def __init__(self, root_url: str='https://hashlookup.circl.lu/', useragent: Optional[str]=None):
         '''Query a specific hashlookup instance.
 
         :param root_url: URL of the instance to query.
         '''
         self.root_url = root_url
-
         if not urlparse(self.root_url).scheme:
             self.root_url = 'http://' + self.root_url
         if not self.root_url.endswith('/'):
             self.root_url += '/'
+
         self.session = requests.session()
+        self.session.headers['user-agent'] = useragent if useragent else f'PyHashlookup / {pkg_resources.get_distribution("pyhashlookup").version}'
 
     def info(self) -> Dict[str, str]:
         '''Get the information about the database.'''
@@ -43,21 +45,21 @@ class Hashlookup():
 
     def info_over_dns(self) -> Dict[str, str]:
         '''Get the information about the database.'''
-        answer = dns.resolver.resolve('info.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
+        answer = dns.resolver.resolve('info.dns.hashlookup.circl.lu', 'TXT')
         a = str(answer[0])
         return json.loads(json.loads(a))
 
     def md5_lookup_over_dns(self, md5: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a MD5, over DNS'''
         md5 = md5.lower()
-        answer = dns.resolver.resolve(f'{md5}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
+        answer = dns.resolver.resolve(f'{md5}.dns.hashlookup.circl.lu', 'TXT')
         a = str(answer[0])
         return json.loads(json.loads(a))
 
     def sha1_lookup_over_dns(self, sha1: str) -> Dict[str, Union[str, Dict[str, str]]]:
         '''Lookup a SHA1, over DNS'''
         sha1 = sha1.lower()
-        answer = dns.resolver.resolve(f'{sha1}.dns.hashlookup.circl.lu', 'TXT')  # type: ignore
+        answer = dns.resolver.resolve(f'{sha1}.dns.hashlookup.circl.lu', 'TXT')
         a = str(answer[0])
         return json.loads(json.loads(a))
 
@@ -88,6 +90,16 @@ class Hashlookup():
         r = self.session.post(urljoin(self.root_url, str(Path('bulk', 'sha1'))), json=to_post)
         return r.json()
 
+    def sha1_children(self, sha1: str, count: int=100, cursor: str='0') -> Dict[str, Union[List[str], str, int]]:
+        """Return children from a given SHA1."""
+        r = self.session.get(urljoin(self.root_url, str(Path('children', sha1, str(count), cursor))))
+        return r.json()
+
+    def sha1_parents(self, sha1: str, count: int=100, cursor: str='0') -> Dict[str, Union[List[str], str, int]]:
+        """Return parents from a given SHA1."""
+        r = self.session.get(urljoin(self.root_url, str(Path('parents', sha1, str(count), cursor))))
+        return r.json()
+
     @typing.overload
     def lookup(self, to_lookup: List[str]) -> List[Dict[str, str]]:
         ...  # pragma: no cover
@@ -96,7 +108,7 @@ class Hashlookup():
     def lookup(self, to_lookup: str) -> Dict[str, Union[str, Dict[str, str]]]:
         ...  # pragma: no cover
 
-    def lookup(self, to_lookup):  # type: ignore
+    def lookup(self, to_lookup: Union[List[str], str]) -> Union[List[Dict[str, str]], Dict[str, Union[str, Dict[str, str]]]]:
         """Lookup for (a list of) MD5 or SHA1"""
         if isinstance(to_lookup, str):
             if len(to_lookup) == 32:
