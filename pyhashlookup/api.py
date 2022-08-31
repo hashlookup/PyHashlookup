@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import json
-import pkg_resources
 import typing
 
+from importlib.metadata import version
 from pathlib import Path
 from typing import Dict, List, Union, Any, Optional
 from urllib.parse import urljoin, urlparse
@@ -31,7 +31,7 @@ class Hashlookup():
             self.root_url += '/'
 
         self.session = requests.session()
-        self.session.headers['user-agent'] = useragent if useragent else f'PyHashlookup / {pkg_resources.get_distribution("pyhashlookup").version}'
+        self.session.headers['user-agent'] = useragent if useragent else f'PyHashlookup / {version("pyhashlookup")}'
 
     def info(self) -> Dict[str, str]:
         '''Get the information about the database.'''
