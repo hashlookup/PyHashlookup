@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhashlookup"
-version = "1.2.1"
+version = "1.2.2"
 description = "Python CLI and module for CIRCL hash lookup"
 authors = ["Raphaël Vinot <raphael.vinot@circl.lu>"]
 license = "BSD-3-Clause"
