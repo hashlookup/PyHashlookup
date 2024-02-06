@@ -105,7 +105,7 @@ class UnitTesting(unittest.TestCase):
     def test_cli_info(self, mock_args, mock_stdout) -> None:  # type: ignore
         main()
         response = json.loads(mock_stdout.getvalue())
-        assert 'hashlookup-version' in response
+        assert 'nsrl-version' in response
 
     @mock.patch('sys.stdout', new_callable=StringIO)
     @mock.patch('argparse.ArgumentParser.parse_args',
