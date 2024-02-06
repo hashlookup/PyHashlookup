@@ -1,7 +1,11 @@
+from __future__ import annotations
+
 import argparse
 import json
 
 from .api import Hashlookup, PyHashlookupError  # noqa
+
+__all__ = ['Hashlookup', 'PyHashlookupError']
 
 
 def main() -> None:
