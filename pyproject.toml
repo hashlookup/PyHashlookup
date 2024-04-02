@@ -32,7 +32,7 @@ hashlookup = 'pyhashlookup:main'
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dnspython = "^2.5.0"
+dnspython = "^2.6.1"
 requests = "^2.31.0"
 Sphinx = [
     {version = "<7.2", python = "<3.9", optional = true},
@@ -40,9 +40,9 @@ Sphinx = [
 ]
 
 [tool.poetry.dev-dependencies]
-mypy = "^1.8.0"
-types-requests = "^2.31.0.20240125"
-pytest-cov = "^4.1.0"
+mypy = "^1.9.0"
+types-requests = "^2.31.0.20240402"
+pytest-cov = "^5.0.0"
 
 [tool.poetry.extras]
 docs = ["Sphinx"]
