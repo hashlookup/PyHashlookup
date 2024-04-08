@@ -844,13 +844,13 @@ files = [
 
 [[package]]
 name = "types-requests"
-version = "2.31.0.20240402"
+version = "2.31.0.20240406"
 description = "Typing stubs for requests"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "types-requests-2.31.0.20240402.tar.gz", hash = "sha256:e5c09a202f8ae79cd6ffbbba2203b6c3775a83126283bb2a6abbc129abc02a12"},
-    {file = "types_requests-2.31.0.20240402-py3-none-any.whl", hash = "sha256:bd7eb7102168d4b5b489f15cdd9842b63ab7fe56aa82a0589fa595b94195acf4"},
+    {file = "types-requests-2.31.0.20240406.tar.gz", hash = "sha256:4428df33c5503945c74b3f42e82b181e86ec7b724620419a2966e2de604ce1a1"},
+    {file = "types_requests-2.31.0.20240406-py3-none-any.whl", hash = "sha256:6216cdac377c6b9a040ac1c0404f7284bd13199c0e1bb235f4324627e8898cf5"},
 ]
 
 [package.dependencies]
@@ -905,4 +905,4 @@ docs = ["Sphinx", "Sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "e9dc2b0516cb63541e3483979780c47cc71dfbaf8fcaf71f3df3410138643270"
+content-hash = "95334d89e393bf78fcf5bc40528cacfa79a96474290cb5987df9836d6ff02d50"
