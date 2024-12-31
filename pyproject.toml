@@ -45,7 +45,7 @@ Sphinx = [
 ]
 
 [tool.poetry.dev-dependencies]
-mypy = "^1.13.0"
+mypy = "^1.14.1"
 types-requests = "^2.32.0.20241016"
 pytest-cov = [
     {version = "<=5.0.0",  python = "<3.9"},
