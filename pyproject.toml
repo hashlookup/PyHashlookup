@@ -32,25 +32,17 @@ classifiers = [
 hashlookup = 'pyhashlookup:main'
 
 [tool.poetry.dependencies]
-python = "^3.8"
-dnspython = [
-    {version = "<2.7", python = "<3.9"},
-    {version = "^2.7", python = ">=3.9"}
-]
+python = "^3.9"
+dnspython = "^2.7.0"
 requests = "^2.32.3"
 Sphinx = [
-    {version = "<7.2", python = "<3.9", optional = true},
-    {version = "<8", python = "<3.10", optional = true},
     {version = "^8", python = ">=3.10", optional = true}
 ]
 
 [tool.poetry.dev-dependencies]
-mypy = "^1.13.0"
+mypy = "^1.14.1"
 types-requests = "^2.32.0.20241016"
-pytest-cov = [
-    {version = "<=5.0.0",  python = "<3.9"},
-    {version = "^5.0.0",  python = ">=3.9"}
-]
+pytest-cov = "^6.0.0"
 
 [tool.poetry.extras]
 docs = ["Sphinx"]
