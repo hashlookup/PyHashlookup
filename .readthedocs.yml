@@ -1,14 +1,18 @@
 version: 2
 
+build:
+  os: "ubuntu-lts-latest"
+  tools:
+    python: "3"
+
+sphinx:
+  configuration: "docs/source/conf.py"
+
 python:
-  version: 3.8
   install:
       - method: pip
         path: .
         extra_requirements:
             - docs
-
-build:
-    image: latest
 
 formats: all
