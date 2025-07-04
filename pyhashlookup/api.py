@@ -20,7 +20,8 @@ class PyHashlookupError(Exception):
 
 class Hashlookup():
 
-    def __init__(self, root_url: str='https://hashlookup.circl.lu/', useragent: str | None=None):
+    def __init__(self, root_url: str='https://hashlookup.circl.lu/', useragent: str | None=None,
+                 *, proxies: dict[str, str] | None=None) -> None:
         '''Query a specific hashlookup instance.
 
         :param root_url: URL of the instance to query.
@@ -33,6 +34,8 @@ class Hashlookup():
 
         self.session = requests.session()
         self.session.headers['user-agent'] = useragent if useragent else f'PyHashlookup / {version("pyhashlookup")}'
+        if proxies:
+            self.session.proxies.update(proxies)
 
     def info(self) -> dict[str, str]:
         '''Get the information about the database.'''
