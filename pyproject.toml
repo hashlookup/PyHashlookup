@@ -1,6 +1,6 @@
 [project]
 name = "pyhashlookup"
-version = "1.2.6"
+version = "1.2.7"
 description = "Python CLI and module for CIRCL hash lookup"
 authors = [{name="Raphaël Vinot", email="raphael.vinot@circl.lu"}]
 license = "BSD-3-Clause"
