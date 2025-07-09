@@ -20,13 +20,13 @@ class PyHashlookupError(Exception):
 
 class Hashlookup():
 
-    def __init__(self, root_url: str='https://hashlookup.circl.lu/', useragent: str | None=None,
+    def __init__(self, root_url: str | None=None, useragent: str | None=None,
                  *, proxies: dict[str, str] | None=None) -> None:
         '''Query a specific hashlookup instance.
 
         :param root_url: URL of the instance to query.
         '''
-        self.root_url = root_url
+        self.root_url = root_url if root_url else 'https://hashlookup.circl.lu/'
         if not urlparse(self.root_url).scheme:
             self.root_url = 'http://' + self.root_url
         if not self.root_url.endswith('/'):
